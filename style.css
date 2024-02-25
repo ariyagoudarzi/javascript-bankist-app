@@ -351,3 +351,31 @@ h2 {
 .timer {
   font-weight: 600;
 }
+
+@media only screen and (max-width: 600px) {
+  nav {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    margin: 15px;
+  }
+  .app {
+    display: block;
+  }
+  .operation {
+    margin: 25px 0;
+  }
+  .summary {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .summary > * {
+    margin: 0;
+  }
+  .btn--sort {
+    margin: 5px auto;
+  }
+}
