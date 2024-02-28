@@ -223,7 +223,7 @@ const showUserList = function (accs) {
       })
       .map((date, i) => {
         if (i % 2 === 0)
-          return `<p class="date-time-table" style="background-color: #e4e4e4;">${date}</p>`;
+          return `<p class="date-time-table" style="background-color: #dadaff;">${date}</p>`;
         else return `<p class="date-time-table">${date}</p>`;
       });
 
@@ -233,16 +233,18 @@ const showUserList = function (accs) {
         currency: user[5],
       }).format(mov);
       if (i % 2 === 0)
-        return `<p class="date-time-table" style="background-color: #e4e4e4;">${
+        return `<p class="date-time-table" style="background-color: #dadaff;">${
           i + 1
         }) ${formattedMov}</p>`;
       else return `<p class="date-time-table">${i + 1}) ${formattedMov}</p>`;
     });
     const html = `
     <tr>
-      <th>${i + 1}</th>
-      <th>${user[0]}</th>
-      <th style="font-family: monospace;">${user[3]} ${user[2]}</th>
+      <th style="padding: 10px;">${i + 1}</th>
+      <th style="padding: 10px;">${user[0]}</th>
+      <th style="font-family: monospace; padding: 10px;">${user[3]} ${
+      user[2]
+    }</th>
       <th>${movements.join("")}</th>
       <th>${dateHtml.join("")}</th>
     </tr>
@@ -253,8 +255,28 @@ const showUserList = function (accs) {
   });
 };
 
-let currentAccount;
+const startLogOutTimer = function () {
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+    labelTimer.textContent = `${min}:${sec}`;
 
+    if (time === 0) {
+      clearInterval(timer);
+      document.querySelector(".app-container").style.display = "none";
+      labelWelcome.textContent = "Log in to get started";
+    }
+
+    time--;
+  };
+  let time = 120;
+
+  tick();
+  const timer = setInterval(tick, 1000);
+  return timer;
+};
+
+let currentAccount, timer;
 // currentAccount = account1;
 // updateUI(currentAccount);
 // containerApp.style.opacity = "1";
@@ -265,6 +287,9 @@ btnLogin.addEventListener("click", function (e) {
     (acc) => acc.username === inputLoginUsername.value.trim().toLowerCase()
   );
   if (currentAccount?.pin === +inputLoginPin.value) {
+    document.querySelector(".app-container").style.display = "block";
+    if (timer) clearInterval(timer);
+    timer = startLogOutTimer();
     document.querySelector(".admin-pannel").style.display = "none";
     // => currentAccount && currentAccount.pin
     labelWelcome.textContent = `Welcome back ${
@@ -330,8 +355,10 @@ btnLogin.addEventListener("click", function (e) {
     ];
     const bankBalanceHtml = `
     <tr>
-      <th style="color:#39b385;">${bankBalance[0]}$</th>
-      <th style="color:#e52a5a;">${Math.abs(bankBalance[1])}$</th>
+      <th style="color:#39b385; padding: 15px 20px;">${bankBalance[0]}$</th>
+      <th style="color:#e52a5a; padding: 15px 20px;">${Math.abs(
+        bankBalance[1]
+      )}$</th>
     </tr>
     `;
     document.querySelector(".balance-label").innerHTML += bankBalanceHtml;
@@ -362,6 +389,9 @@ btnTransfer.addEventListener("click", function (e) {
 
     updateUI(currentAccount);
 
+    clearInterval(timer);
+    timer = startLogOutTimer();
+
     inputTransferAmount.value = inputTransferTo.value = "";
     inputTransferTo.blur();
   }
@@ -378,6 +408,9 @@ btnLoan.addEventListener("click", function (e) {
       currentAccount.movements.push(amount);
       currentAccount.movementsDates.push(new Date().toISOString());
       updateUI(currentAccount);
+
+      clearInterval(timer);
+      timer = startLogOutTimer();
     }, 4500);
 
     inputLoanAmount.value = "";
