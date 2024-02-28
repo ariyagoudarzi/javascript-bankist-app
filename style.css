@@ -19,7 +19,7 @@
   margin: 0;
   padding: 0;
   box-sizing: inherit;
-  font-family: "IranSans";
+  font-family: sans-serif;
 }
 
 html {
@@ -141,7 +141,6 @@ table {
 
 td,
 th {
-  border: 1px solid #dddddd;
   text-align: left;
   padding: 0;
   font-size: 20px;
@@ -438,23 +437,31 @@ h2 {
 }
 .scroll-table::-webkit-scrollbar {
   width: 10px;
+  border-radius: 100px;
 }
 .scroll-table::-webkit-scrollbar-track {
   background: #ffffff;
+  border-radius: 100px;
 }
 .scroll-table::-webkit-scrollbar-thumb {
   background: rgb(195, 195, 195);
   background: linear-gradient(
     45deg,
-    rgba(195, 195, 195, 0.8) 0%,
-    rgba(230, 230, 230, 0.8) 100%
+    rgba(222, 222, 255, 0.8) 0%,
+    rgba(222, 222, 255, 0.8) 100%
   );
+  border-radius: 100px;
 }
 .scroll-table::-webkit-scrollbar-thumb:hover {
   background: rgb(195, 195, 195);
   background: linear-gradient(
     45deg,
-    rgba(195, 195, 195, 1) 0%,
-    rgba(230, 230, 230, 1) 100%
+    #bebeff,
+    rgb(190, 190, 255) 100%
   );
+  border-radius: 100px;
+}
+.app-container,
+.admin-pannel {
+  display: none;
 }
