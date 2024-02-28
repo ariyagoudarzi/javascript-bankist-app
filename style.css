@@ -19,7 +19,7 @@
   margin: 0;
   padding: 0;
   box-sizing: inherit;
-  font-family: "Poppins", sans-serif;
+  font-family: "IranSans";
 }
 
 html {
@@ -147,6 +147,8 @@ th {
   font-size: 20px;
   color: #4c4c4c;
   font-weight: 500;
+  width: max-content;
+  text-align: left;
 }
 
 table > *:nth-child(even) {
@@ -412,6 +414,9 @@ h2 {
   .btn--sort {
     margin: 5px auto;
   }
+  .date-time-table {
+    width: max-content;
+  }
 }
 
 .delete-user {
@@ -426,4 +431,30 @@ h2 {
   font-size: 15px;
   color: #4c4c4c;
   padding: 6px;
+}
+
+.scroll-table {
+  overflow-x: auto;
+}
+.scroll-table::-webkit-scrollbar {
+  width: 10px;
+}
+.scroll-table::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+.scroll-table::-webkit-scrollbar-thumb {
+  background: rgb(195, 195, 195);
+  background: linear-gradient(
+    45deg,
+    rgba(195, 195, 195, 0.8) 0%,
+    rgba(230, 230, 230, 0.8) 100%
+  );
+}
+.scroll-table::-webkit-scrollbar-thumb:hover {
+  background: rgb(195, 195, 195);
+  background: linear-gradient(
+    45deg,
+    rgba(195, 195, 195, 1) 0%,
+    rgba(230, 230, 230, 1) 100%
+  );
 }
